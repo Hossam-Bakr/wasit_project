@@ -14,12 +14,15 @@ exports.createBroker = async (req, res) => {
 // Get all brokers
 exports.getAllBrokers = async (req, res) => {
   try {
-    const brokers = await Broker.findAll();
+    const brokers = await Broker.findAll({
+      include: [Category]
+    });
     res.status(200).json(brokers);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 // Get a broker by ID
 exports.getBrokerById = async (req, res) => {

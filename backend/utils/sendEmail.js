@@ -1,9 +1,6 @@
-
-console.log(process.env.EMAIL_HOST);
-
 const nodemailer = require('nodemailer');
 
-const sendEmail = async (to, subject, message) => {
+const sendEmail = async (to, subject, message, attachment) => {
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -15,10 +12,11 @@ const sendEmail = async (to, subject, message) => {
   });
 
   const mailOptions = {
-    from: `Wasit Project <${process.env.EMAIL_USER}>`, 
+    from: `Wasit Project <${process.env.EMAIL_USER}>`,
     to, // Recipient email address
     subject,
     html: message,
+    attachments: attachment ? [attachment] : [], // Include attachment if provided
   };
 
   try {
